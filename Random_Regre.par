@@ -1,0 +1,51 @@
+# Practice UGA parameter file for simple univariate
+# See chapter 3 in Mrode 2014 (Linear Models) for details
+DATAFILE
+../trainK_RN.dat
+SKIP_HEADER
+1
+TRAITS
+5 # This is PRR
+FIELDS_PASSED TO OUTPUT
+1     # This will copy the ID number to the renf90.dat data file
+WEIGHT(S)  # WARNING: ALWAYS PUT AN EMPTY LINE AFTER THIS!!!!!
+
+RESIDUAL_VARIANCE
+1
+EFFECT
+2 cross alpha
+EFFECT
+3 cross alpha
+EFFECT
+7 cov
+EFFECT
+8 cov
+EFFECT
+9 cov
+EFFECT
+1 cross alpha   # RECODE individual ID 
+RANDOM
+animal           # Fit animal effect (A matrix) for the effect directly above it
+OPTIONAL
+pe
+#FILE
+#NA_soybeans_PH2.ped   # name of the pedigree file (animal, sire, dam), 0's are missing
+#FILE_POS
+#1 2 3 0 0        # indicates that column 1 = Animal, column 2 = Sire, column 3 = Dam
+SNP_FILE
+/mnt/gnuog/GxE/ID_genoK_BLUPF90.txt
+#PED_DEPTH
+#0
+#(CO)VARIANCES    
+#1 # add starting values for additive animal effect 
+#(CO)VARIANCES_PE      ## its variance component
+#1
+RANDOM_REGRESSION
+data
+RR_POSITION
+7 8 9
+OPTION alpha_size 24
+OPTION missing -999
+OPTION solution
+#OPTION se_covar_function h2 G_4_4_1_1/(G_4_4_1_1+G_5_5_1_1+R_1_1)
+
